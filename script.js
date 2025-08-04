@@ -1,0 +1,1 @@
+console.log('Story Crystal script loaded');
