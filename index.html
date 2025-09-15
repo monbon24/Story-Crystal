@@ -1,1 +1,299 @@
-<!DOCTYPE html><html><head><title>Story Crystal</title><link rel='stylesheet' href='style.css'></head><body><h1>Story Crystal</h1><script src='script.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Crystal · Campaign Chronicle Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="title-cluster">
+      <h1>Story Crystal</h1>
+      <p class="subtitle">A multi-page tabletop RPG campaign and story organizer for <span data-binding="campaign-title">your saga</span>.</p>
+      <p class="mini-callout">Next session: <span data-binding="next-session">Nothing scheduled yet</span></p>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="export-data" class="ghost-button">Export Chronicle</button>
+      <button type="button" id="reset-data" class="ghost-button danger">Reset Data</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <nav class="sidebar" aria-label="Story Crystal navigation">
+      <button class="nav-link active" data-target="overview-page">Campaign Overview</button>
+      <button class="nav-link" data-target="sessions-page">Session Planner</button>
+      <button class="nav-link" data-target="npcs-page">NPCs &amp; Factions</button>
+      <button class="nav-link" data-target="locations-page">Locations &amp; Relics</button>
+      <button class="nav-link" data-target="beats-page">Story Beats &amp; Lore</button>
+    </nav>
+
+    <main id="page-container">
+      <section class="page active" id="overview-page" aria-labelledby="overview-heading">
+        <header class="page-header">
+          <h2 id="overview-heading">Campaign Overview</h2>
+          <p class="page-intro">Define the shape of your world, its guiding truths, and what keeps the party tethered together.</p>
+        </header>
+        <div class="grid two-column">
+          <article class="card highlight">
+            <h3>Current Snapshot</h3>
+            <dl class="campaign-summary">
+              <div class="summary-item">
+                <dt>Title</dt>
+                <dd data-binding="campaign-title">your saga</dd>
+              </div>
+              <div class="summary-item">
+                <dt>Genre &amp; Tone</dt>
+                <dd>
+                  <strong data-binding="campaign-genre">Define the genre and stakes.</strong>
+                  <span class="tone" data-binding="campaign-tone">Outline the emotional palette.</span>
+                </dd>
+              </div>
+              <div class="summary-item">
+                <dt>Campaign Hook</dt>
+                <dd data-binding="campaign-hook">Describe the promise of adventure.</dd>
+              </div>
+              <div class="summary-item">
+                <dt>Inspirations</dt>
+                <dd data-binding="campaign-inspirations">List your inspirational touchstones.</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="card">
+            <h3>Campaign Primer</h3>
+            <form id="campaign-form" class="stacked-form">
+              <label>
+                <span>Campaign Title</span>
+                <input type="text" data-field="title" placeholder="Legends of the Story Crystal">
+              </label>
+              <label>
+                <span>Genre &amp; Stakes</span>
+                <input type="text" data-field="genre" placeholder="Swords &amp; sorcery rebellion against a crystal empire">
+              </label>
+              <label>
+                <span>Campaign Hook</span>
+                <textarea rows="3" data-field="hook" placeholder="What promise draws the party into the fray?"></textarea>
+              </label>
+              <label>
+                <span>Tone &amp; Themes</span>
+                <textarea rows="3" data-field="tone" placeholder="High-hope resistance, friendships forged in crystal light..."></textarea>
+              </label>
+              <label>
+                <span>Inspirations &amp; Touchstones</span>
+                <textarea rows="2" data-field="inspirations" placeholder="List novels, games, or shows that shape your world."></textarea>
+              </label>
+            </form>
+          </article>
+
+          <article class="card">
+            <h3>Party Roster</h3>
+            <textarea data-store="partyRoster" rows="8" placeholder="List the heroes, their classes, motivations, and player names."></textarea>
+          </article>
+
+          <article class="card">
+            <h3>World Truths &amp; Factions</h3>
+            <textarea data-store="worldTruths" rows="8" placeholder="Document laws of magic, setting truths, and powerful groups."></textarea>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="sessions-page" aria-labelledby="sessions-heading">
+        <header class="page-header">
+          <h2 id="sessions-heading">Session Planner</h2>
+          <p class="page-intro">Arrange upcoming sessions and capture the dramatic beats you want to spotlight.</p>
+        </header>
+        <div class="grid two-column">
+          <article class="card">
+            <h3>Plan a Session</h3>
+            <form id="session-form" class="stacked-form">
+              <label>
+                <span>Session Title</span>
+                <input type="text" name="sessionTitle" placeholder="A Crystal Fractures" required>
+              </label>
+              <label>
+                <span>Session Date</span>
+                <input type="date" name="sessionDate">
+              </label>
+              <label>
+                <span>Spotlight</span>
+                <input type="text" name="sessionSpotlight" placeholder="Which character, theme, or front takes center stage?">
+              </label>
+              <label>
+                <span>Key Beats</span>
+                <textarea rows="3" name="sessionBeats" placeholder="List the scenes, challenges, or reveals you want to hit."></textarea>
+              </label>
+              <label>
+                <span>Threats &amp; Opposition</span>
+                <textarea rows="3" name="sessionThreats" placeholder="List foes, clocks, fronts, or obstacles."></textarea>
+              </label>
+              <label>
+                <span>Rewards &amp; Fallout</span>
+                <textarea rows="3" name="sessionRewards" placeholder="Treasure, advancements, relationships, world changes."></textarea>
+              </label>
+              <label>
+                <span>Status</span>
+                <select name="sessionStatus">
+                  <option value="Upcoming">Upcoming</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                </select>
+              </label>
+              <button type="submit" class="primary-button">Add Session Plan</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Upcoming Sessions</h3>
+            <div id="session-list" class="vertical-stack"></div>
+          </article>
+          <article class="card full-width">
+            <h3>Scene Sparks &amp; Table Reminders</h3>
+            <textarea data-store="sessionIdeas" rows="6" placeholder="Write down improvisational prompts, NPC voices, or table rules to revisit."></textarea>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="npcs-page" aria-labelledby="npcs-heading">
+        <header class="page-header">
+          <h2 id="npcs-heading">NPCs &amp; Factions</h2>
+          <p class="page-intro">Track the faces of your story and how their loyalties shift over time.</p>
+        </header>
+        <div class="grid two-column">
+          <article class="card">
+            <h3>Log an NPC</h3>
+            <form id="npc-form" class="stacked-form">
+              <label>
+                <span>Name</span>
+                <input type="text" name="npcName" placeholder="Seris the Crystal Archivist" required>
+              </label>
+              <label>
+                <span>Role or Archetype</span>
+                <input type="text" name="npcRole" placeholder="Caretaker of forbidden lore">
+              </label>
+              <label>
+                <span>Faction or Allegiance</span>
+                <input type="text" name="npcFaction" placeholder="The Shardbound Synod">
+              </label>
+              <label>
+                <span>Motivations</span>
+                <textarea rows="2" name="npcMotivation" placeholder="What do they want and fear?"></textarea>
+              </label>
+              <label>
+                <span>Details &amp; Secrets</span>
+                <textarea rows="3" name="npcDetails" placeholder="Quirks, relationships, revelations, or planned evolutions."></textarea>
+              </label>
+              <button type="submit" class="primary-button">Add NPC</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>NPC Codex</h3>
+            <div id="npc-list" class="vertical-stack"></div>
+          </article>
+          <article class="card full-width">
+            <h3>Faction Fronts</h3>
+            <textarea data-store="factionNotes" rows="6" placeholder="Outline faction clocks, resources, schemes, and how they clash."></textarea>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="locations-page" aria-labelledby="locations-heading">
+        <header class="page-header">
+          <h2 id="locations-heading">Locations &amp; Relics</h2>
+          <p class="page-intro">Map the places the party visits and the mystical relics that color your world.</p>
+        </header>
+        <div class="grid two-column">
+          <article class="card">
+            <h3>Add a Location or Relic</h3>
+            <form id="location-form" class="stacked-form">
+              <label>
+                <span>Name</span>
+                <input type="text" name="locationName" placeholder="Glowspire Bastion" required>
+              </label>
+              <label>
+                <span>Type</span>
+                <input type="text" name="locationType" placeholder="Location, dungeon, artifact, realm...">
+              </label>
+              <label>
+                <span>Hooks &amp; Atmosphere</span>
+                <textarea rows="2" name="locationHook" placeholder="Why is it important? What mood does it set?"></textarea>
+              </label>
+              <label>
+                <span>Dangers or Guardians</span>
+                <textarea rows="2" name="locationDanger" placeholder="What threatens trespassers?"></textarea>
+              </label>
+              <label>
+                <span>Secrets &amp; Treasures</span>
+                <textarea rows="2" name="locationTreasure" placeholder="Hidden lore, rewards, or links to future quests."></textarea>
+              </label>
+              <button type="submit" class="primary-button">Add Entry</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Atlas &amp; Vault</h3>
+            <div id="location-list" class="vertical-stack"></div>
+          </article>
+          <article class="card full-width">
+            <h3>Relic &amp; Region Notes</h3>
+            <textarea data-store="relicNotes" rows="6" placeholder="Wondrous items, ley lines, regional travel complications, or weather tables."></textarea>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="beats-page" aria-labelledby="beats-heading">
+        <header class="page-header">
+          <h2 id="beats-heading">Story Beats &amp; Lore</h2>
+          <p class="page-intro">Track the evolving plot, foreshadow future twists, and capture lore as it emerges at the table.</p>
+        </header>
+        <div class="grid two-column">
+          <article class="card">
+            <h3>Plot a Story Beat</h3>
+            <form id="beat-form" class="stacked-form">
+              <label>
+                <span>Beat Title</span>
+                <input type="text" name="beatTitle" placeholder="Shardfall Prophecy Revealed" required>
+              </label>
+              <label>
+                <span>Act or Stage</span>
+                <select name="beatStage">
+                  <option value="Act I">Act I</option>
+                  <option value="Act II">Act II</option>
+                  <option value="Act III">Act III</option>
+                  <option value="Side Story">Side Story</option>
+                  <option value="Epilogue">Epilogue</option>
+                </select>
+              </label>
+              <label>
+                <span>Beat Status</span>
+                <select name="beatStatus">
+                  <option value="Foreshadowed">Foreshadowed</option>
+                  <option value="In Motion">In Motion</option>
+                  <option value="Resolved">Resolved</option>
+                </select>
+              </label>
+              <label>
+                <span>Details</span>
+                <textarea rows="3" name="beatDetails" placeholder="What signals this beat? How will it change the campaign?"></textarea>
+              </label>
+              <button type="submit" class="primary-button">Add Story Beat</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Story Timeline</h3>
+            <div id="beat-list" class="vertical-stack"></div>
+          </article>
+          <article class="card full-width">
+            <h3>Lore Notebook</h3>
+            <textarea data-store="loreNotes" rows="6" placeholder="Legends, prophecies, myths, rumors from the table, or unanswered questions."></textarea>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Story Crystal remembers your notes locally in this browser. Export often to preserve your chronicle.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
