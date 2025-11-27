@@ -1,1 +1,54 @@
-<!DOCTYPE html><html><head><title>Story Crystal</title><link rel='stylesheet' href='style.css'></head><body><h1>Story Crystal</h1><script src='script.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Dispatch Management - Vertical Slice</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Hero Dispatch Management</h1>
+    <p class="subtitle">Visual Novel-style loyalty and scarcity loop prototype</p>
+  </header>
+
+  <main>
+    <section class="panel" id="shift-info">
+      <div class="row space-between">
+        <div>
+          <h2>Current Shift</h2>
+          <p id="shift-counter">Shift A</p>
+        </div>
+        <button id="run-cycle" class="primary">Run Vertical Slice Cycle</button>
+      </div>
+      <p class="hint">Deploys two heroes, resolves one mission, and triggers a downtime event.</p>
+    </section>
+
+    <section class="panel" id="roster-panel">
+      <h2>Hero Roster</h2>
+      <div id="roster"></div>
+    </section>
+
+    <section class="panel" id="mission-panel">
+      <h2>Mission Board</h2>
+      <div id="mission"></div>
+    </section>
+
+    <section class="panel" id="log-panel">
+      <h2>Shift Log</h2>
+      <div id="log"></div>
+    </section>
+  </main>
+
+  <section id="narrative-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="narrative-title">Breakroom Dialogue</h3>
+      <p id="narrative-text"></p>
+      <div id="narrative-choices" class="choice-list"></div>
+      <button id="close-narrative" class="secondary">Skip</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
